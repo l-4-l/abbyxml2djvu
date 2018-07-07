@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8  -*-
+# https://it.wikisource.org/w/index.php?title=Progetto:Bot/Programmi_in_Python_per_i_bot/xml2dsed.py
 
 
 from bs4 import BeautifulSoup
