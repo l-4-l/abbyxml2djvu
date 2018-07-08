@@ -18,9 +18,6 @@ from os import system,listdir,getcwd,path
 
 import sys
 
-from xml.etree import ElementTree
-
-
 def load_to_bs(filename):
     f = open(filename,"r")
     text = f.read()
@@ -37,7 +34,7 @@ def convert_xml_dsed(xml):
     for page_n, page in enumerate(pages):
         page_w = page.attrs["width"]
         page_h = page.attrs["height"]
-        dsed += "\nselect " + page_n + "\nset-txt\n(page 0 0 " + page_w + " " + page_h
+        dsed += "\nselect " + str(page_n) + "\nset-txt\n(page 0 0 " + str(page_w) + " " + str(page_h)
         blocks = page.find_all("block")
         for block in blocks:
             texts = block.find_all("text")
@@ -46,7 +43,11 @@ def convert_xml_dsed(xml):
                 for par in pars:
                     lines = par.find_all("line")
                     for line in lines:
-                        dsed += "\n (line x y x y \"" 
+                        line_t = line.attrs["t"]
+                        line_b = line.attrs["b"]
+                        line_l = line.attrs["l"]
+                        line_r = line.attrs["r"]
+                        dsed += "\n (line "+ line_l+ " "+ (page_h-line_t)+ " "+ line_r+ " "+ (page_h-line_b)+ "\"" 
                         chars = line.find_all("charParams")
                         for char in chars:
                             dsed += char.get_text()
