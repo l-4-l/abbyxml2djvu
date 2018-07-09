@@ -34,7 +34,7 @@ def convert_xml_dsed(xml):
     for page_n, page in enumerate(pages):
         page_w = page.attrs["width"]
         page_h = page.attrs["height"]
-        dsed += "\nselect " + str(page_n) + "\nset-txt\n(page 0 0 " + str(page_w) + " " + str(page_h)
+        dsed += "\nselect " + str(page_n+1) + "\nset-txt\n(page 0 0 " + str(page_w) + " " + str(page_h)
         blocks = page.find_all("block")
         for block in blocks:
             texts = block.find_all("text")
@@ -47,18 +47,18 @@ def convert_xml_dsed(xml):
                         line_b = line.attrs["b"]
                         line_l = line.attrs["l"]
                         line_r = line.attrs["r"]
-                        dsed += "\n (line "+ line_l+ " "+ (page_h-line_t)+ " "+ line_r+ " "+ (page_h-line_b)+ "\"" 
+                        dsed += "\n (line "+ line_l.ljust(4)+ " "+ str(int(page_h)-int(line_t)).ljust(4)+ " "+ line_r.ljust(4)+ " "+ str(int(page_h)-int(line_b)).ljust(4)+ " \"" 
                         chars = line.find_all("charParams")
                         for char in chars:
                             dsed += char.get_text()
-                            dsed += "\")"
+                        dsed += "\")"
         dsed += "\n)\n\n."
     return dsed
 
 
 def save(text, filename):
     f = open(filename, "w")
-    f.write(text)
+    f.write(text.encode("utf-8"))
     f.close()
 
 
