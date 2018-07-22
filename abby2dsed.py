@@ -10,6 +10,26 @@ page
             line
                 charparams
                 formatting
+
+result tree should be like:
+
+select 2 #page number
+set-txt
+(page xmin ymin xmax ymax
+  (column xmin ymin xmax ymax
+    (region xmin ymin xmax ymax
+      (para xmin ymin xmax ymax
+        (line xmin ymin xmax ymax
+          (word xmin ymin xmax ymax
+            (char xmin ymin xmax ymax "V")
+          )
+        )
+      )
+    )
+  )
+)
+
+but in fact page-para-line is enough
 '''
 
 from bs4 import BeautifulSoup
